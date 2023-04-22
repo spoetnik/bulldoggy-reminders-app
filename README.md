@@ -16,13 +16,26 @@ It uses:
 ## Installing dependencies
 
 You will need a recent version of Python to run this app.
+
+It is recommended to install dependencies into a [virtual environment](https://docs.python.org/3/library/venv.html).
+
+Create a virtual environment:
+
+```
+python3 -m venv env 
+```
+
+Activate the virtual Python environment:
+
+```
+source env/bin/activate 
+```
+
 To install project dependencies:
 
 ```
 pip install -r requirements.txt
 ```
-
-It is recommended to install dependencies into a [virtual environment](https://docs.python.org/3/library/venv.html).
 
 
 ## Running the app
@@ -30,11 +43,19 @@ It is recommended to install dependencies into a [virtual environment](https://d
 To run the app:
 
 ```
-uvicorn app.main:app --reload
+python3 -m uvicorn app.main:app --reload
 ```
 
 Then, open your browser to [`http://127.0.0.1:8000`](http://127.0.0.1:8000) to load the app.
 
+
+## Testing the app
+
+To run the tests:
+
+```
+python3 -m pytest --browser webkit --headed
+```
 
 ## Logging into the app
 
