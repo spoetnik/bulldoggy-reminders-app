@@ -130,3 +130,6 @@ dmypy.json
 
 # Databases
 *db.json
+
+# OSX meta file
+.DS_Store
