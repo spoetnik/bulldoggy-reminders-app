@@ -10,6 +10,12 @@
   >
     {{ reminder_item.description }}
   </p>
+  <p
+  hx-patch="/reminders/item-row-strike/{{ reminder_item.id }}"
+  hx-trigger="click"
+>
+  {{ reminder_item.recurrence }}
+</p>
   <img
     src="/static/img/icons/icon-edit.svg"
     hx-get="/reminders/item-row-edit/{{ reminder_item.id }}"

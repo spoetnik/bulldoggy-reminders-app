@@ -35,6 +35,7 @@ class NewReminderListName(BaseModel):
 
 class NewReminderItem(BaseModel):
   description: str
+  recurrence: str
 
 
 class SelectedListId(BaseModel):
@@ -148,7 +149,7 @@ async def post_reminders_list_id_items(
 ) -> ReminderItem:
   """Adds a new item to a reminder list."""
 
-  item_id = storage.add_item(list_id, reminder_item.description)
+  item_id = storage.add_item(list_id, reminder_item.description, reminder_item.recurrence)
   return storage.get_item(item_id)
 
 
@@ -178,7 +179,7 @@ async def patch_items_item_id(
 ) -> ReminderItem:
   """Updates a reminder item's description."""
   
-  storage.update_item_description(item_id, reminder_item.description)
+  storage.update_item(item_id, reminder_item.description, reminder_item.recurrence)
   return storage.get_item(item_id)
 
 

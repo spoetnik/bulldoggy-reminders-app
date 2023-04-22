@@ -22,6 +22,7 @@ class ReminderItem(BaseModel):
   id: int
   list_id: int
   description: str
+  recurrence: str
   completed: bool
 
 
@@ -126,10 +127,11 @@ class ReminderStorage:
 
   # Reminder Items
 
-  def add_item(self, list_id: int, description: str) -> int:
+  def add_item(self, list_id: int, description: str, recurrence: str) -> int:
     reminder_item = {
       'list_id': list_id,
       'description': description,
+      'recurrence': recurrence,
       'completed': False,
     }
 
@@ -163,9 +165,10 @@ class ReminderStorage:
     self._items_table.update(item, doc_ids=[item_id])
   
 
-  def update_item_description(self, item_id: int, new_description: str) -> None:
+  def update_item(self, item_id: int, new_description: str, new_recurrence: str) -> None:
     item = self._get_raw_item(item_id)
     item['description'] = new_description
+    item['recurrence'] = new_recurrence
     self._items_table.update(item, doc_ids=[item_id])
 
 

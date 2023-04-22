@@ -225,17 +225,18 @@ async def delete_reminders_item_row(
 
 @router.patch(
   path="/item-row-description/{item_id}",
-  summary="Partial: Updates a reminder item row's description",
+  summary="Partial: Updates a reminder item row",
   tags=["HTMX Partials"],
   response_class=HTMLResponse
 )
-async def patch_reminders_item_row_description(
+async def patch_reminders_item_row(
   item_id: int,
   request: Request,
   storage: ReminderStorage = Depends(get_storage_for_page),
-  new_description: str = Form()
+  new_description: str = Form(),
+  new_recurrence: str = Form()
 ):
-  storage.update_item_description(item_id, new_description)
+  storage.update_item(item_id, new_description, new_recurrence)
   reminder_item = storage.get_item(item_id)
   context = {'request': request, 'reminder_item': reminder_item}
   return templates.TemplateResponse("partials/reminders/item-row.html", context)
@@ -297,10 +298,12 @@ async def get_reminders_new_item_row(
 async def post_reminders_new_item_row(
   request: Request,
   storage: ReminderStorage = Depends(get_storage_for_page),
-  reminder_item_name: str = Form()
+  reminder_item_name: str = Form(),
+  reminder_item_recurrence: str = Form()
+
 ):
   selected_list = storage.get_selected_list()
-  storage.add_item(selected_list.id, reminder_item_name)
+  storage.add_item(selected_list.id, reminder_item_name, reminder_item_recurrence,)
   return _get_reminders_grid(request, storage)
 
 
